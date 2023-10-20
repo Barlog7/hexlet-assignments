@@ -4,4 +4,4 @@ caches/
 .idea/
 .DS_Store
 gradle/
-../.idea/
+config/
