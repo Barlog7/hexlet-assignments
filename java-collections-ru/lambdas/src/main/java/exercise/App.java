@@ -1,8 +1,7 @@
 package exercise;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 // BEGIN
@@ -64,7 +63,7 @@ class App {
         return largeArr;
     }
     public static String[] makeDouble(String[] str) {
-        int firstSize = str.length * 2;
+        /*int firstSize = str.length * 2;
         String[] strNew = new String[firstSize];
         int count = 0;
         for (int i = 0; i < str.length; i++) {
@@ -72,8 +71,13 @@ class App {
             strNew[count + 1] = str[i];
             count = count + 2;
         }
+        return strNew;*/
+        //String[] strNew = Arrays.stream(str).flatMap(cell -> Arrays.stream(new String[]{cell, cell})).toArray(size -> new String[size]);
+        String[] strNew = Arrays.stream(str).flatMap(cell -> Arrays.stream(new String[]{cell, cell})).toArray(String[]::new);
         return strNew;
     }
+
+
 
     /*public static void main(String[] args) {
         *//*String[][] image = {
