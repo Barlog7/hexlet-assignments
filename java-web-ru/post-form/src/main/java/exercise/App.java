@@ -36,9 +36,8 @@ public final class App {
         // BEGIN
         app.post("/users", ctx -> {
 
-            var firstname = StringUtils.capitalize(ctx.formParam("firstname").trim());
-            //StringUtils.capitalize()
-            var lastname = StringUtils.capitalize(ctx.formParam("lastname").trim());
+            var firstname = StringUtils.capitalize(ctx.formParam("firstName").trim());
+            var lastname = StringUtils.capitalize(ctx.formParam("lastName").trim());
             var email = ctx.formParam("email").trim().toLowerCase();
             var password = Security.encrypt(ctx.formParam("password"));
 
