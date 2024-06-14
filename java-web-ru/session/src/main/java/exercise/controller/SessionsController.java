@@ -15,7 +15,11 @@ public class SessionsController {
     // BEGIN
     public static void build(Context ctx) {
         //ctx.redirect("build.jte");
-        ctx.render("build.jte");
+        //ctx.render("build.jte");
+        var name =  ctx.sessionAttribute("name");
+        var error = ctx.sessionAttribute("error");
+        var page = new LoginPage((String) name, (String) error);
+        ctx.render("build.jte", model("page", page));
     }
     public static void login(Context ctx) {
         //var name = ctx.formParam("name");
@@ -28,20 +32,19 @@ public class SessionsController {
         if (user != null && user.getPassword().equals(Security.encrypt(password))) {
             //ctx.sessionAttribute("login", "yes");
             ctx.sessionAttribute("name", name);
-            ctx.sessionAttribute("error", error);
+            ctx.sessionAttribute("error", null);
+            ctx.redirect(NamedRoutes.rootPath());
+
         } else {
             error = "Wrong username or password.";
             ctx.sessionAttribute("name", null);
             ctx.sessionAttribute("error", error);
+            ctx.redirect(NamedRoutes.buildSessionPath());
+        }
 
-        }/*else {
-            error = "Wrong username or password.";
-            //ctx.sessionAttribute("error", error);
-        }*/
+        //var page = new LoginPage(name, error);
+        //ctx.render("index.jte", model("page", page));
 
-        var page = new LoginPage(name, error);
-        ctx.render("index.jte", model("page", page));
-        //ctx.redirect(NamedRoutes.rootPath());
     }
 
     public static void logout(Context ctx) {
