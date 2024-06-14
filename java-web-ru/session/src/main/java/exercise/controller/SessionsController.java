@@ -24,7 +24,7 @@ public class SessionsController {
     public static void login(Context ctx) {
         //var name = ctx.formParam("name");
         //var curname = ctx.sessionAttribute("name");
-        var name = ctx.formParam("nickname");
+        var name = ctx.formParam("name");
         var password = ctx.formParam("password");
         var user = UsersRepository.findByName(name);
         String error = null;
@@ -34,12 +34,16 @@ public class SessionsController {
             ctx.sessionAttribute("name", name);
             ctx.sessionAttribute("error", null);
             ctx.redirect(NamedRoutes.rootPath());
+            //var page = new LoginPage(name, error);
+            //ctx.render("index.jte", model("page", page));
 
         } else {
             error = "Wrong username or password.";
             ctx.sessionAttribute("name", null);
             ctx.sessionAttribute("error", error);
-            ctx.redirect(NamedRoutes.buildSessionPath());
+            //ctx.redirect(NamedRoutes.buildSessionPath());
+            var page = new LoginPage((String) name, (String) error);
+            ctx.render("build.jte", model("page", page));
         }
 
         //var page = new LoginPage(name, error);
@@ -57,10 +61,7 @@ public class SessionsController {
 
             var name =  ctx.sessionAttribute("name");
             var error = ctx.sessionAttribute("error");
-            //String error = null;
-           /* if (name == null) {
-                error = "Wrong username or password.";
-            }*/
+
             var page = new LoginPage((String) name, (String) error);
             ctx.render("index.jte", model("page", page));
 

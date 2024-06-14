@@ -21,7 +21,7 @@ public final class App {
         app.get(NamedRoutes.rootPath(),SessionsController::show);
         app.get(buildSessionPath(),SessionsController::build);
         app.post(NamedRoutes.loginPath(),SessionsController::login);
-        app.get(NamedRoutes.logoutPath(),SessionsController::logout);
+        app.post(NamedRoutes.logoutPath(),SessionsController::logout);
 
         // END
 
