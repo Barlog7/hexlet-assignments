@@ -23,20 +23,25 @@ public class SessionsController {
         var name = ctx.formParam("nickname");
         var password = ctx.formParam("password");
         var user = UsersRepository.findByName(name);
-        //String error = null;
+        String error = null;
 
         if (user != null && user.getPassword().equals(Security.encrypt(password))) {
             //ctx.sessionAttribute("login", "yes");
             ctx.sessionAttribute("name", name);
-            //ctx.sessionAttribute("error", null);
-        } /*else {
+            ctx.sessionAttribute("error", error);
+        } else {
+            error = "Wrong username or password.";
+            ctx.sessionAttribute("name", null);
+            ctx.sessionAttribute("error", error);
+
+        }/*else {
             error = "Wrong username or password.";
             //ctx.sessionAttribute("error", error);
         }*/
 
-        //var page = new LoginPage(name, error);
-        //ctx.render("index.jte", model("page", page));
-        ctx.redirect(NamedRoutes.rootPath());
+        var page = new LoginPage(name, error);
+        ctx.render("index.jte", model("page", page));
+        //ctx.redirect(NamedRoutes.rootPath());
     }
 
     public static void logout(Context ctx) {
@@ -47,12 +52,13 @@ public class SessionsController {
 
     public static void show(Context ctx) {
 
-            var name = ctx.sessionAttribute("name");
-            String error = null;
-            if (name == null) {
+            var name =  ctx.sessionAttribute("name");
+            var error = ctx.sessionAttribute("error");
+            //String error = null;
+           /* if (name == null) {
                 error = "Wrong username or password.";
-            }
-            var page = new LoginPage((String) name, error);
+            }*/
+            var page = new LoginPage((String) name, (String) error);
             ctx.render("index.jte", model("page", page));
 
         //ctx.redirect(NamedRoutes.rootPath());
