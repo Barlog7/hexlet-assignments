@@ -13,7 +13,8 @@ public class HelloServlet extends HttpServlet {
     // BEGIN
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String name = req.getParameter("name");
+        String param = req.getParameter("name");
+        String name = param == null ? "Guest" : param;
         String message = "Hello, " + name +"!";
         req.setAttribute("message", message);
 
