@@ -41,7 +41,16 @@ public class ArticleController {
 
 
     // BEGIN
-    
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    ArticleDTO create(@RequestBody ArticleCreateDTO data) {
+        var model = articleMapper.map(data);
+        var user = userUtils.getCurrentUser();
+        model.setAuthor(user);
+        articleRepository.save(model);
+        var returnDTO = articleMapper.map(model);
+        return returnDTO;
+    }
     // END
 
     @GetMapping("")
