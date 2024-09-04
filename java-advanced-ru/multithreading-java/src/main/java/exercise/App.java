@@ -15,23 +15,37 @@ class App {
         MaxThread treadMax = new MaxThread();
         treadMax.setNumbers(numbers);
         treadMax.start();
+        LOGGER.log(Level.INFO, "Thread " + treadMax.getName() + " started");
         treadMin.start();
+        LOGGER.log(Level.INFO, "Thread " + treadMin.getName() + " started");
+
+
         try {
             treadMax.join();
+            LOGGER.log(Level.INFO, "Thread " + treadMax.getName() + " finished");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Поток был прерван");
+            //throw new RuntimeException(e);
         }
         try {
             treadMin.join();
+            LOGGER.log(Level.INFO, "Thread " + treadMin.getName() + " finished");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Поток был прерван");
+            //throw new RuntimeException(e);
         }
-        int max = treadMax.getMax();
+/*        int max = treadMax.getMax();
         int min = treadMin.getMin();
         var map = new HashMap<String, Integer>();
         map.put("max",max);
-        map.put("min", min);
-        return map;
+        map.put("min", min);*/
+        Map result = Map.of(
+                "min", treadMin.getMin(),
+                "max", treadMax.getMax()
+        );
+
+        LOGGER.log(Level.INFO, "Result: " + result.toString());
+        return result;
 
     }
 
