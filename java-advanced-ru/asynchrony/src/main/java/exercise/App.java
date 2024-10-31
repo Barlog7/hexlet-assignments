@@ -54,10 +54,10 @@ class App {
         return dataSum;
     }
 
-    public static CompletableFuture<Long> getDirectorySize(String path) {
+/*    public static CompletableFuture<Long> getDirectorySize(String path) {
         var pathDir = Paths.get(path).toAbsolutePath().normalize();
     }
-    // END
+    // END*/
 
     public static void main(String[] args) throws Exception {
         // BEGIN
